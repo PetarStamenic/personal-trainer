@@ -17,8 +17,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
-class SpringSecurityConfig : WebSecurityCustomizer {
-    private val jwtFilter: JwtFilter? = null
+class SpringSecurityConfig (
+    var jwtFilter: JwtFilter
+): WebSecurityCustomizer {
     @Bean
     fun passwordEncoder(): BCryptPasswordEncoder {
         return BCryptPasswordEncoder()
@@ -43,10 +44,10 @@ class SpringSecurityConfig : WebSecurityCustomizer {
                 authorizeRequests
                     .requestMatchers("/swagger-ui/**", "/api-docs/**", "/swagger-resources/**").permitAll()
                     .requestMatchers(
-                        "/users/login",
+                        "api/users/login"
                     ).permitAll()
             }
-            .csrf { csrf -> csrf.disable() }
+            .csrf().disable()
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
 
         return httpSecurity.build()

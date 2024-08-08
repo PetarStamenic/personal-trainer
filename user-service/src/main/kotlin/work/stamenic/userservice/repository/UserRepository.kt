@@ -10,7 +10,5 @@ import java.util.*
 
 @Repository
 interface UserRepository : JpaRepository<User,Long>, JpaSpecificationExecutor<User>{
-    fun findByUsernameAndActiveTrue(username: String): User?
-    @Query("SELECT TYPE(u) FROM User u WHERE u.id = :id")
-    fun findUserTypeById(@Param("id") id: Long): String
+    fun findByUserAndStatusTrue(username: String): User?
 }

@@ -11,10 +11,10 @@ import java.lang.IllegalArgumentException
 
 @Service
 class CustomUserDetailService(
-    val userRepository: UserRepository
+    var userRepository: UserRepository
 ) : UserDetailsService{
     override fun loadUserByUsername(username: String?): UserDetails {
-        val user: User = username?.let { userRepository.findByUsernameAndActiveTrue(it) }
+        var user: User = username?.let { userRepository.findByUserAndStatusTrue(it) }
             ?: throw IllegalArgumentException("user not found")
         return org.springframework.security.core.userdetails.User(
             user.username,user.password,user.authorities

@@ -1,23 +1,25 @@
 package work.stamenic.userservice.model
 
 import jakarta.persistence.Entity
+import lombok.NoArgsConstructor
 
 @Entity
+@NoArgsConstructor
 class Admin (
-    username: String,
-    password: String,
+    user: String,
+    pass: String,
     email: String,
     dateOfBirth: Long,
     firstName: String,
     lastName: String
 ) : User(
-    id = 0,
-    username = username,
-    password = password,
+    0,
+    user = user,
+    pass = pass,
     email = email,
     dateOfBirth = dateOfBirth,
     firstName = firstName,
     lastName = lastName,
-    active = true,
+    status = true,
     role = UserRole.ADMIN
 )

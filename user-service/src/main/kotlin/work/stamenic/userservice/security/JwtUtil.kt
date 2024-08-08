@@ -14,7 +14,7 @@ import kotlin.collections.HashMap
 
 @Component
 class JwtUtil(
-    val userRepository: UserRepository
+    var userRepository: UserRepository
 ) {
     @Value("\${jwt.secret}")
     private lateinit var secretKey: String
@@ -34,11 +34,11 @@ class JwtUtil(
     fun generateToken(username: String?): String? {
         if(username.isNullOrEmpty())
             throw IllegalArgumentException("username cannot be null")
-        val user: User? = userRepository.findByUsernameAndActiveTrue(username)
-        val claims: MutableMap<String, Any> = HashMap()
+        var user: User? = userRepository.findByUserAndStatusTrue(username)
+        var claims: MutableMap<String, Any> = HashMap()
         if(user == null)
             throw IllegalArgumentException("user not found")
-        claims["type"] = userRepository.findUserTypeById(user.id)
+        claims["type"] = user.role.name
         claims["id"] = user.id
         return Jwts.builder()
             .setClaims(claims)

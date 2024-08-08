@@ -11,8 +11,8 @@ class CustomPermissionEvaluator: PermissionEvaluator {
         if (authentication == null || !authentication.isAuthenticated || permission !is String) {
             return false
         }
-        val userDetails = authentication.principal as UserDetails
-        val authorities = userDetails.authorities
+        var userDetails = authentication.principal as UserDetails
+        var authorities = userDetails.authorities
 
         for (authority in authorities) {
             return authority!!.authority  == permission

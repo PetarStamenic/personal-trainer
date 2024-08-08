@@ -2,27 +2,29 @@ package work.stamenic.userservice.model
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import lombok.Data
+import lombok.NoArgsConstructor
 
 @Entity
+@NoArgsConstructor
 class Client(
-    @Column(nullable = false, unique = true)
-    val membershipCardNumber: String,
-    @Column(nullable = false)
-    val bookedTrainings: Int,
-    username: String,
-    password: String,
+    @Column(unique = true)
+    var membershipCardNumber: String,
+    var bookedTrainings: Int,
+    user: String,
+    pass: String,
     email: String,
     dateOfBirth: Long,
     firstName: String,
     lastName: String
 ) : User(
     id = 0,
-    username = username,
-    password = password,
+    user = user,
+    pass = pass,
     email = email,
     dateOfBirth = dateOfBirth,
     firstName = firstName,
     lastName = lastName,
-    active = true,
+    status = true,
     role = UserRole.CLIENT
 )
